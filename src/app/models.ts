@@ -9,3 +9,8 @@ export interface Question {
     owner_profile_image: string;
     answer_count: number;
 }
+
+export interface SoState {
+    feed: Question[];
+    bookmarked: number[];
+}
