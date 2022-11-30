@@ -1,4 +1,9 @@
-<div class="questions-container">
+<div class="questions-container"
+    infinite-scroll
+    [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollThrottle]="throttle"
+    (scrolled)="onScrollEnd()"
+>
     <div class="question" *ngFor="let question of feed$ | async; index as i">
         <div class="question-data">
             <div class="question-header">

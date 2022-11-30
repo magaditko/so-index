@@ -17,13 +17,16 @@ export class MainFeedComponent implements OnInit {
   faBookmarkRegular = bookmarkRegular;
   feed$: Observable<Question[]> | undefined;
   bookmarks$: Observable<number[]> | undefined;
+  throttle = 300;
+  scrollDistance = 0.2;
+  page = 1;
 
   constructor(private store: Store<SoState>) {}
 
   ngOnInit(): void {
     this.feed$ = this.store.pipe(select(getFeed)); 
     this.bookmarks$ = this.store.pipe(select(getBookmarked));
-    this.store.dispatch(loadFeed({page: 1}));
+    this.store.dispatch(loadFeed({page: this.page}));
   }
 
   addToBookmarks(question_id: number): void {
@@ -32,5 +35,12 @@ export class MainFeedComponent implements OnInit {
 
   removeFromBookmarks(question_id: number): void {
     this.store.dispatch(removeBookmark({questionId: question_id}))
+  }
+
+  onScrollEnd() {
+    this.page += 1;
+    if (this.page <= 10) {
+      this.store.dispatch(loadFeed({ page: this.page }));
+    }
   }
 }

@@ -14,6 +14,7 @@ import * as fromFeed from './store/feed.reducer';
 import { FeedEffects } from './store/feed.effects';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       maxAge: 25,
       autoPause: true
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]
