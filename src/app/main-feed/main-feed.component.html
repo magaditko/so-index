@@ -1,1 +1,26 @@
-<p>main-feed works!</p>
+<div class="questions-container">
+    <div class="question" *ngFor="let question of feed$ | async; index as i">
+        <div class="question-data">
+            <div class="question-header">
+                <h2 class="question-title">{{ question.title }}</h2>
+                <div class="question-bookmarks" *ngIf="bookmarks$ | async as bookmarks">
+                    <button *ngIf="!bookmarks.includes(question.question_id)" class="add" (click)="addToBookmarks(question.question_id)"><fa-icon [icon]="faBookmarkRegular"></fa-icon></button>
+                    <button *ngIf="bookmarks.includes(question.question_id)" class="remove" (click)="removeFromBookmarks(question.question_id)"><fa-icon [icon]="faBookmarkSolid"></fa-icon></button>
+                </div>
+            </div>
+            <div class="question-info">
+                <span class="score">Score: {{ question.score }}</span>
+                <span class="create-date">Date of creation: {{ question.creation_date * 1000 | date }}</span>
+                <span *ngIf="question.last_edit_date" class="update-date">Update date: {{ question.last_edit_date }}</span>
+                <span class="answers">Answers: {{ question.answer_count }}</span>
+            </div>
+            <div class="owner-info">
+                <img class="owner-profile-image" src="{{question.owner_profile_image}}" />
+                <p class="owner-name">{{ question.owner_name }}</p>
+            </div>
+            <div class="tags">
+                <span class="tag" *ngFor="let tag of question.tags"> {{tag}}</span>
+            </div>
+        </div>
+    </div>    
+</div>

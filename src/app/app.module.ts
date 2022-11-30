@@ -13,6 +13,7 @@ import { QuestionDetailsComponent } from './question-details/question-details.co
 import * as fromFeed from './store/feed.reducer';
 import { FeedEffects } from './store/feed.effects';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CommonModule } from '@angular/common';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       autoPause: true
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
