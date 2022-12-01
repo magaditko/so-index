@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Question, SoState } from '../models';
+import { Question, SoState } from '../store/models';
 import { clearQuestion } from '../store/feed.actions';
 import { getQuestion, getBookmarked } from '../store/feed.selectors';
 

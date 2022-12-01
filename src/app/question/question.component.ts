@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Question, SoState } from '../models';
+import { Question, SoState } from '../store/models';
 import { addBookmark, loadQuestion, removeBookmark } from '../store/feed.actions';
 import { faBookmark as bookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as bookmarkRegular } from '@fortawesome/free-regular-svg-icons'

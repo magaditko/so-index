@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Question, SoState } from '../models';
+import { Question, SoState } from '../store/models';
 import { loadFeed } from '../store/feed.actions';
 import { getBookmarked, getFeed } from '../store/feed.selectors';
 import { Observable } from 'rxjs';

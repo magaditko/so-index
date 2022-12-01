@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Question, SoState } from '../models';
+import { SoState } from './models';
 
 export const getAppState = createFeatureSelector<SoState>('soFeed');
 

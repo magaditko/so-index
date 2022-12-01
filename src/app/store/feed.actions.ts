@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Question, QuestionDetails } from '../models';
+import { Question, QuestionDetails } from './models';
 
 export enum ActionTypes {
   LoadFeed = '[Feed] Load',

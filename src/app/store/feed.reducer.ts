@@ -1,5 +1,5 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { Question, QuestionDetails, SoState } from '../models';
+import { createReducer, on } from '@ngrx/store';
+import { Question, SoState } from './models';
 import * as feed from './feed.actions';
 
 

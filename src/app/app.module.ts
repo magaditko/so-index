@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { Action, ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
@@ -15,7 +14,7 @@ import { FeedEffects } from './store/feed.effects';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { SoState } from './models';
+import { SoState } from './store/models';
 import { storageSync } from '@larscom/ngrx-store-storagesync';
 import { QuestionComponent } from './question/question.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -59,7 +58,6 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     CommonModule,
-    AppRoutingModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     StoreModule.forRoot(reducers, {metaReducers}),

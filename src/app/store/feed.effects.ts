@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { EMPTY } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { SoState } from '../models';
-import { SoIndexService } from '../so-index.service';
+import { map, mergeMap } from 'rxjs/operators';
+import { SoState } from './models';
+import { SoIndexService } from './so-index.service';
 import { ActionTypes } from './feed.actions';
 
 

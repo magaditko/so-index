@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { first, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
-import { Question, SoState } from '../models';
-import { loadBookmarked, loadQuestion } from '../store/feed.actions';
+import { first, Observable } from 'rxjs';
+import { Question, SoState } from '../store/models';
+import { loadBookmarked } from '../store/feed.actions';
 import { getBookmarked, getBookmarkedFeed } from '../store/feed.selectors';
 
 @Component({
