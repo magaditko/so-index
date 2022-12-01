@@ -1,1 +1,8 @@
-<p>bookmarked-questions works!</p>
+<div *ngIf="(bookmarked$| async)!.length > 0; else empty">
+    <div class="question" *ngFor="let question of bookmarked$ | async; index as i">
+        <app-question [question]="question" [bookmarks]="bookmarks"></app-question>
+    </div>
+</div>
+<ng-template #empty>
+    <p>No Bookmarked Questions</p>
+</ng-template>
