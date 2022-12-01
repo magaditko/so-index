@@ -1,0 +1,6 @@
+a {
+    margin-right: 10px;
+    &:first-child {
+        margin-left: 10px;
+    }
+}

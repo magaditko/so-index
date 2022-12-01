@@ -1,0 +1,10 @@
+<div class="questions-container"
+    infinite-scroll
+    [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollThrottle]="throttle"
+    (scrolled)="onScrollEnd()"
+>
+    <div class="question" *ngFor="let question of feed$ | async; index as i">
+        <app-question [question]="question" [bookmarks]="(bookmarks$ | async) ? (bookmarks$ | async) : []"></app-question>
+    </div>
+</div>
