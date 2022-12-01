@@ -17,6 +17,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SoState } from './models';
 import { storageSync } from '@larscom/ngrx-store-storagesync';
+import { QuestionComponent } from './question/question.component';
+import { RouterModule, Routes } from '@angular/router';
+import { SafePipe } from './safe.pipe';
 
 function reducer(state: SoState | undefined, action: Action): SoState {
   return fromFeed.reducer(state, action);
@@ -29,7 +32,7 @@ export const reducers: ActionReducerMap<{ soFeed: SoState }> = {
 export function storageSyncReducer(reducer: ActionReducer<SoState>): ActionReducer<SoState> {
   const metaReducer = storageSync<SoState>({
     features: [
-      { stateKey: 'soFeed', excludeKeys: ['feed'] },
+      { stateKey: 'soFeed', excludeKeys: ['feed', 'bookmarkedFeed' ] },
     ],
     storage: window.localStorage
   });
@@ -38,17 +41,26 @@ export function storageSyncReducer(reducer: ActionReducer<SoState>): ActionReduc
 }
 const metaReducers: MetaReducer<any>[] = [storageSyncReducer];
 
+const routes: Routes = [
+  { path: 'main-feed', component: MainFeedComponent },
+  { path: 'bookmarked-questions', component: BookmarkedQuestionsComponent },
+  { path: 'question-details', component: QuestionDetailsComponent },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
     MainFeedComponent,
     BookmarkedQuestionsComponent,
-    QuestionDetailsComponent
+    QuestionDetailsComponent,
+    QuestionComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
+    RouterModule.forRoot(routes),
     HttpClientModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([FeedEffects]),
