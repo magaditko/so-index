@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { SoState } from '../models';
+import { Question, QuestionDetails, SoState } from '../models';
 import * as feed from './feed.actions';
 
 
@@ -7,7 +7,9 @@ export const feedFeatureKey = 'soFeed';
 
 export const initialState: SoState = {
   feed: [],
-  bookmarked: []
+  bookmarkedFeed: [],
+  bookmarked: [],
+  currentQuestion: {} as Question,
 };
 
 export const reducer = createReducer(
@@ -19,12 +21,44 @@ export const reducer = createReducer(
       ...data
     ]
   })),
-  on(feed.addBookmark, (state, { questionId }) => ({
+  on(feed.addBookmark, (state, { question }) => ({
     ...state,
-    bookmarked: [...state.bookmarked, questionId]
+    bookmarked: [...state.bookmarked, question]
   })),
-  on(feed.removeBookmark, (state, { questionId }) => ({
+  on(feed.removeBookmark, (state, { question }) => ({
     ...state,
-    bookmarked: [...state.bookmarked.filter(q => q !== questionId)]
-  }))
+    bookmarked: [...state.bookmarked.filter(q => q.question_id !== question.question_id)],
+    bookmarkedFeed: [...state.bookmarkedFeed.filter(q => q.question_id !== question.question_id)]
+  })),
+  on(feed.loadBookmarkedSuccess, (state, { data }) => ({
+    ...state,
+    bookmarkedFeed: [
+      ...data
+    ]
+  })),
+  on(feed.loadQuestionSuccess, (state, { data }) => ({
+    ...state,
+    currentQuestion: {
+      ...findFromFeed(data.question_id, state.feed, state.bookmarked),
+      body: data.body
+    }
+  })),
+  on(feed.clearQuestion, (state) => ({
+    ...state,
+    currentQuestion: {} as Question
+  })),
 );
+
+function findFromFeed(questionId: number, feed: Question[], bookmarked: Question[]) {
+  let fromFeed = feed.filter(question => question.question_id === questionId)[0]
+  let fromBookmarks = bookmarked.filter(question => question.question_id === questionId)[0]
+
+  if(fromFeed?.question_id) {
+    return fromFeed
+  } else if(fromBookmarks?.question_id) {
+    return fromBookmarks
+  } else {
+    return {} as Question
+  }
+}
+

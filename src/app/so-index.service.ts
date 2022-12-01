@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Question } from './models';
+import { Question, QuestionDetails } from './models';
 import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
@@ -28,17 +28,27 @@ export class SoIndexService {
     );
   }
 
-  getQuestion(questionIds: number[]) {
+  getQuestion(questionIds: number[]): Observable<Question[]> {
     let questionIdsString = questionIds.join(';')
     return this.http.get(
       `${this.apiUrl}/questions/${questionIdsString}?site=stackoverflow`
+    ).pipe(
+      map((res: any) => {
+        let result = this.mapResponse(res);
+        return result;
+      })
     );
   }
 
-  getQuestionDetails(questionId: number) {
+  getQuestionDetails(questionId: number): Observable<QuestionDetails> {
     return this.http.get(
       `${this.apiUrl}/questions/${questionId}?site=stackoverflow&filter=!bBWABX2t.8zvmY`
-    );
+    ).pipe(map((res: any) => {
+      return {
+        body: res.items[0].body,
+        question_id: res.items[0].question_id
+      }
+    }));
   }
 
   private mapResponse(questionsResponse: any): Question[] {

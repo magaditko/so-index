@@ -32,4 +32,32 @@ export class FeedEffects {
         )
       )
   );
+
+  setBookmarked = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ActionTypes.LoadBookmarked),
+        mergeMap((data: {questionIds: number[]}) => 
+          this.soService.getQuestion(data.questionIds).pipe(
+            map(q => {
+              return {type: ActionTypes.LoadBookmarkedSuccess, data: q};
+            })
+          )
+        )
+      )
+  );
+
+  setCurrentQuestion = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ActionTypes.LoadQuestion),
+        mergeMap((data: {questionId: number}) => 
+          this.soService.getQuestionDetails(data.questionId).pipe(
+            map(q => {
+              return {type: ActionTypes.LoadQuestionSuccess, data: q};
+            })
+          )
+        )
+      )
+  );
 }
